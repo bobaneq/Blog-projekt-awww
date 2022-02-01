@@ -5,7 +5,37 @@ a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
+  z-index 5;
 }
+
+
+/*moj*/
+
+.page-holder {
+    min-height: 20vh;
+}
+
+.bg-cover {
+    background-size:cover;
+}
+
+
+/* Media Query for devices withi coarse pointers and no hover functionality */
+
+/* This will use a fallback image instead of a video for devices that commonly do not support the HTML5 video element */
+
+@media (pointer: coarse) and (hover: none) {
+    header {
+        background: url('https://source.unsplash.com/XT5OInaElMw/1600x900') black no-repeat center center scroll;
+    }
+
+        header video {
+            display: none;
+        }
+}
+
+
+
 
 /* Provide sufficient contrast against white background */
 a {
@@ -69,3 +99,5 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+
