@@ -1,4 +1,5 @@
 ﻿using Blog.Data;
+using Blog.Data.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -10,11 +11,11 @@ namespace Blog.Controllers
     {
         // sending reciving data from db we need call dbcontext
 
-        private readonly AppDbContext _context;
+        private readonly ITagsService _service;
 
-        public TagiController(AppDbContext context)
+        public TagiController(ITagsService service)
         {
-            _context = context;
+            _service = service;
         }
 
 
@@ -23,7 +24,7 @@ namespace Blog.Controllers
         {
 
             // zmiana sync methods to async 
-            var WszystkieTagi = await _context.Tagi.ToListAsync();
+            var WszystkieTagi = await _service.GetAll();
             return View(WszystkieTagi);
         }
     }
