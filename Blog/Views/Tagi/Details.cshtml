@@ -1,0 +1,35 @@
+﻿@model Tag
+
+@{
+    ViewData["Title"] = "Dodaj nowy Tag";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+       
+           <h6 class="text-center">Szczegóły dla @Model.Nazwa</h6>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+              
+
+                  
+
+                    <div class="form-group">
+                        <label asp-for="Nazwa" class="control-label"></label>
+                        <input asp-for="Nazwa" class="form-control" readonly/>
+                        <span asp-validation-for="Nazwa" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                       
+                        <a class="btn btn-outline-success float-right" asp-action="Edit" asp-route-id="@Model.Id">Edycja</a>
+                        <a class="btn btn-outline-secondary" asp-action="Index">Wszystkie Tagi</a>
+                    </div>
+                
+
+            </div>
+        </div>
+    </div>
+</div>
+

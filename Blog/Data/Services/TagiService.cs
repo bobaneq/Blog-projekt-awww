@@ -16,13 +16,10 @@ namespace Blog.Data.Services
         }
 
 
-
-
-
-        public void Add(Tag tag)
+        public async Task AddAsync(Tag tag)
         {
-            _context.Tagi.Add(tag);
-            _context.SaveChanges();
+            await _context.Tagi.AddAsync(tag);
+            await _context.SaveChangesAsync();
         }
 
         public void Delete(int id)
@@ -30,7 +27,7 @@ namespace Blog.Data.Services
             throw new System.NotImplementedException();
         }
 
-        public async Task<IEnumerable<Tag>> GetAll()
+        public async Task<IEnumerable<Tag>> GetAllAsync()
         {
             var result =await  _context.Tagi.ToListAsync();
             return result;
@@ -39,14 +36,20 @@ namespace Blog.Data.Services
             
         }
 
-        public Tag GetById(int id)
+        public async Task<Tag> GetByIdAsync(int id)
         {
-            throw new System.NotImplementedException();
+            
+            var result = await _context.Tagi.FirstOrDefaultAsync(x => x.Id == id);
+            return result;
+
+
         }
 
-        public Tag Update(int id, Tag newTag)
+        public async Task<Tag> UpdateAsync(int id, Tag newTag)
         {
-            throw new System.NotImplementedException();
+            await _context.SaveChangesAsync();
+            return newTag;
+           
         }
     }
 }

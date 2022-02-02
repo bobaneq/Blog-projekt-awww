@@ -7,13 +7,13 @@ namespace Blog.Data.Services
     public interface ITagiService
     {
 
-        Task<IEnumerable<Tag>> GetAll();
+        Task<IEnumerable<Tag>> GetAllAsync();
 
-        Tag GetById(int id);
+        Task <Tag> GetByIdAsync(int id);
 
-        void Add(Tag tag);
+        Task AddAsync(Tag tag);
 
-        Tag Update(int id, Tag newTag);
+        Task<Tag> UpdateAsync(int id, Tag newTag);
 
 
         void Delete(int id);

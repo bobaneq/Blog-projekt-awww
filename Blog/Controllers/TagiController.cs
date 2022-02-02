@@ -21,17 +21,17 @@ namespace Blog.Controllers
         }
 
 
-       
+
 
         public async Task<IActionResult> Index()
         {
-            var WszystkieTagi =await _service.GetAll();
+            var WszystkieTagi = await _service.GetAllAsync();
             return View(WszystkieTagi);
 
 
         }
 
-        //To jest Get request : Actors/Create
+        //To jest Get request : Tagi/Create
         public IActionResult Create()
         {
 
@@ -40,13 +40,49 @@ namespace Blog.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("Nazwa")]Tag tag)
+        public async Task<IActionResult> Create([Bind("Nazwa")] Tag tag)
         {
             if (!ModelState.IsValid)
             {
                 return View(tag);
             }
-            _service.Add(tag);
+            await _service.AddAsync(tag);
+            return RedirectToAction(nameof(Index));
+
+        }
+
+
+        //Get: Tagi/Details/1
+        public async Task<IActionResult> Details(int id)
+        {
+            var tagiDetails =await _service.GetByIdAsync(id);
+
+        if (tagiDetails == null) return View("NotFound");
+        return View(tagiDetails);
+        
+        }
+
+
+        //To jest Get request : Tagi/Create
+        public async Task<IActionResult> Edit(int id)
+        {
+
+            var tagiDetails = await _service.GetByIdAsync(id);
+
+            if (tagiDetails == null) return View("NotFound");
+
+            return View(tagiDetails);
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nazwa")] Tag tag)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(tag);
+            }
+            await _service.UpdateAsync(id,tag);
             return RedirectToAction(nameof(Index));
 
         }
