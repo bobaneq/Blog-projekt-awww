@@ -21,7 +21,7 @@ namespace Blog.Controllers
         }
 
 
-        //To jest Get request : Actors/Create
+       
 
         public async Task<IActionResult> Index()
         {
@@ -31,7 +31,25 @@ namespace Blog.Controllers
 
         }
 
+        //To jest Get request : Actors/Create
+        public IActionResult Create()
+        {
 
+            return View();
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([Bind("Nazwa")]Tag tag)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(tag);
+            }
+            _service.Add(tag);
+            return RedirectToAction(nameof(Index));
+
+        }
 
 
 

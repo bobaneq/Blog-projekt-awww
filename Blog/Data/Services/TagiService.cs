@@ -21,7 +21,8 @@ namespace Blog.Data.Services
 
         public void Add(Tag tag)
         {
-            throw new System.NotImplementedException();
+            _context.Tagi.Add(tag);
+            _context.SaveChanges();
         }
 
         public void Delete(int id)
