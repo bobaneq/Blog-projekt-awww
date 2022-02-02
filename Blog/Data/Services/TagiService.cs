@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Blog.Data.Services
 {
-    public class TagService : ITagsService
+    public class TagiService : ITagiService
     {
-
         private readonly AppDbContext _context;
 
-        public TagService(AppDbContext context)
+        public TagiService(AppDbContext context)
         {
-            _context = context;
+           _context=context;
         }
+
 
 
 
@@ -31,10 +31,11 @@ namespace Blog.Data.Services
 
         public async Task<IEnumerable<Tag>> GetAll()
         {
+            var result =await  _context.Tagi.ToListAsync();
+            return result;
 
-            var result =await _context.Tagi.ToListAsync();
-            return result; 
 
+            
         }
 
         public Tag GetById(int id)

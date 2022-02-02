@@ -1,5 +1,6 @@
 ﻿using Blog.Data;
 using Blog.Data.Services;
+using Blog.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -10,22 +11,30 @@ namespace Blog.Controllers
     public class TagiController : Controller
     {
         // sending reciving data from db we need call dbcontext
+        // tutaj przeniesiem to injection do TagiService
+        private readonly ITagiService _service;
 
-        private readonly ITagsService _service;
-
-        public TagiController(ITagsService service)
+        public TagiController(ITagiService service)
         {
+
             _service = service;
         }
 
 
-        // async method
+        //To jest Get request : Actors/Create
+
         public async Task<IActionResult> Index()
         {
-
-            // zmiana sync methods to async 
-            var WszystkieTagi = await _service.GetAll();
+            var WszystkieTagi =await _service.GetAll();
             return View(WszystkieTagi);
+
+
         }
+
+
+
+
+
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Blog.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Blog.Data
 {
@@ -36,6 +37,8 @@ namespace Blog.Data
 
             base.OnModelCreating(modelBuilder);
         }
+
+     
 
         public DbSet<Wpis> Wpisy { get; set; }
 
