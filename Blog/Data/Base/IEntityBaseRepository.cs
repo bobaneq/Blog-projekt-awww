@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Blog.Data.Base
@@ -7,6 +9,9 @@ namespace Blog.Data.Base
     {
 
         Task<IEnumerable<T>> GetAllAsync();
+
+        // przekazywanie więcej niż jednego parametru, przekazywanie całych propsów
+        Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T,object>>[] includeProperties);
 
         Task<T> GetByIdAsync(int id);
 

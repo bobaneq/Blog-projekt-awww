@@ -1,4 +1,5 @@
 ﻿using Blog.Data;
+using Blog.Data.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections;
@@ -9,11 +10,11 @@ namespace Blog.Controllers
 {
     public class WpisyController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly IWpisyService _service;
 
-        public WpisyController(AppDbContext context)
+        public WpisyController(IWpisyService service)
         {
-            _context = context;
+            _service = service;
         }
 
 
@@ -22,8 +23,8 @@ namespace Blog.Controllers
         public async Task<IActionResult> Index()
         {
 
-            // zmiana sync methods to async 
-            var WszystkieWpisy = await _context.Wpisy.OrderByDescending(o =>o.DataDodania).ToListAsync();
+            // zmiana sync methods to async   tutaj trzeba sprawdzic komentarz i komentarze
+            var WszystkieWpisy = await _service.GetAllAsync(n => n.Komentarze);
             return View(WszystkieWpisy);
         }
     }

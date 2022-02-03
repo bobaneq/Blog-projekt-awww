@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Blog.Data.Base;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Blog.Models
 {
-    public class Wpis
+    public class Wpis:IEntityBase
     {
 
         [Key]
