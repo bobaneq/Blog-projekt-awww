@@ -16,7 +16,7 @@ namespace Blog.Data.Services
         Task<Tag> UpdateAsync(int id, Tag newTag);
 
 
-        void Delete(int id);
+        Task DeleteAsync(int id);
 
 
 

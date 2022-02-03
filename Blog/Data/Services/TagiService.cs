@@ -22,9 +22,12 @@ namespace Blog.Data.Services
             await _context.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new System.NotImplementedException();
+            var result = await _context.Tagi.FirstOrDefaultAsync(n => n.Id == id);
+             _context.Tagi.Remove(result);
+            await _context.SaveChangesAsync();
+
         }
 
         public async Task<IEnumerable<Tag>> GetAllAsync()
@@ -47,6 +50,7 @@ namespace Blog.Data.Services
 
         public async Task<Tag> UpdateAsync(int id, Tag newTag)
         {
+            _context.Update(newTag);
             await _context.SaveChangesAsync();
             return newTag;
            
