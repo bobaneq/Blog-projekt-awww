@@ -6,6 +6,15 @@ namespace Blog.Models
 {
     public class Wpis:IEntityBase
     {
+        //public Wpis()
+        //{
+
+        //    this.TagiWpisy = new List<TagWpis>();
+        //    this.Komentarze = new List<Komentarz>();
+        //    this.Tagi = new List<Tag>();
+
+        //}
+
 
         [Key]
         public int Id { get; set; }
@@ -30,20 +39,21 @@ namespace Blog.Models
 
 
         [Display(Name = "Tagi")]
-        public virtual IList<Tag> Tagi { get; set; }
+        public  List<Tag> Tagi { get; set; }
 
-        public virtual IList<TagWpis> TagiWpisy { get; set; }
+        public  List<TagWpis> TagiWpisy { get; set; }
 
 
         [Display(Name = "Komentarze")]
-        public virtual IList<Komentarz> Komentarze { get; set; }
+        public  List<Komentarz> Komentarze { get; set; }
 
         // EF nie supportuje kolekcji skalarow, wiec trzeba zrobic kolekcje encji
         // ew mozna zrobic przez value converter ale troche bardziej skomplikowane i hakowane
         // ale jak cos to tutaj jest jak to zrobic: https://github.com/dotnet/efcore/issues/4179#issuecomment-447993816
         //public Ocena Ocena { get; set; }
 
-        public virtual IList<Ocena> Oceny { get; set; }
+        [Display(Name = "Oceny")]
+        public  List<Ocena> Oceny { get; set; }
 
 
     }
