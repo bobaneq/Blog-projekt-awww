@@ -4,11 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Blog.Models
 {
-    public class Wpis:IEntityBase
+    public class NewWpisVM
     {
 
-        [Key]
-        public int Id { get; set; }
 
         public string ImageURL { get; set; }
 
@@ -29,21 +27,21 @@ namespace Blog.Models
         public System.DateTime DataDodania { get; set; }
 
 
-        [Display(Name = "Tagi")]
-        public virtual IList<Tag> Tagi { get; set; }
+        //Relacje
 
-        public virtual IList<TagWpis> TagiWpisy { get; set; }
+        [Display(Name = "Tagi")]
+        public virtual List<TagWpis> TagiWpisy { get; set; }
 
 
         [Display(Name = "Komentarze")]
-        public virtual IList<Komentarz> Komentarze { get; set; }
+        public virtual List<Komentarz> Komentarze { get; set; }
 
         // EF nie supportuje kolekcji skalarow, wiec trzeba zrobic kolekcje encji
         // ew mozna zrobic przez value converter ale troche bardziej skomplikowane i hakowane
         // ale jak cos to tutaj jest jak to zrobic: https://github.com/dotnet/efcore/issues/4179#issuecomment-447993816
         //public Ocena Ocena { get; set; }
 
-        public virtual IList<Ocena> Oceny { get; set; }
+        public virtual List<Ocena> Oceny { get; set; }
 
 
     }

@@ -144,11 +144,9 @@ namespace Blog.Migrations
 
             modelBuilder.Entity("Blog.Models.Tag", b =>
                 {
-                    b.HasOne("Blog.Models.Wpis", "Wpis")
-                        .WithMany()
+                    b.HasOne("Blog.Models.Wpis", null)
+                        .WithMany("Tagi")
                         .HasForeignKey("WpisId");
-
-                    b.Navigation("Wpis");
                 });
 
             modelBuilder.Entity("Blog.Models.TagWpis", b =>
@@ -180,6 +178,8 @@ namespace Blog.Migrations
                     b.Navigation("Komentarze");
 
                     b.Navigation("Oceny");
+
+                    b.Navigation("Tagi");
 
                     b.Navigation("TagiWpisy");
                 });

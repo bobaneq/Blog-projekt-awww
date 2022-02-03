@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Blog.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220203141034_Initial")]
-    partial class Initial
+    [Migration("20220203201922_Pierwsza")]
+    partial class Pierwsza
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -146,11 +146,9 @@ namespace Blog.Migrations
 
             modelBuilder.Entity("Blog.Models.Tag", b =>
                 {
-                    b.HasOne("Blog.Models.Wpis", "Wpis")
-                        .WithMany()
+                    b.HasOne("Blog.Models.Wpis", null)
+                        .WithMany("Tagi")
                         .HasForeignKey("WpisId");
-
-                    b.Navigation("Wpis");
                 });
 
             modelBuilder.Entity("Blog.Models.TagWpis", b =>
@@ -182,6 +180,8 @@ namespace Blog.Migrations
                     b.Navigation("Komentarze");
 
                     b.Navigation("Oceny");
+
+                    b.Navigation("Tagi");
 
                     b.Navigation("TagiWpisy");
                 });
