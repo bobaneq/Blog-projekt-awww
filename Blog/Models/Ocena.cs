@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Blog.Data.Base;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Blog.Models
 {
-    public class Ocena
+    public class Ocena:IEntityBase
     {
 
         public int Id { get; set; }

@@ -35,6 +35,8 @@ namespace Blog
             // Serwisy konfiguracja
 
             services.AddScoped<ITagiService, TagiService >();
+            services.AddScoped<IOcenyService, OcenyService>();
+
 
 
 

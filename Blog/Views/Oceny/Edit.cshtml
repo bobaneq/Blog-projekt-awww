@@ -1,0 +1,33 @@
+﻿@model Ocena
+
+@{
+    ViewData["Title"] = "Zmiana oceny";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+       
+           <h6 class="text-center">Zmień ocenę</h6>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    @*podglad taga*@
+
+                    <div class="form-group">
+                        <label asp-for="Id" class="control-label"></label>
+                        <input asp-for="Id" class="form-control" />
+                        <span asp-validation-for="Id" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="submit" value="Update" class="btn btn-outline-success float-right" />
+                        <a class="btn btn-outline-secondary" asp-action="Index">Wszystkie oceny</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
