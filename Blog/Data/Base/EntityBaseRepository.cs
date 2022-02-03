@@ -20,7 +20,15 @@ namespace Blog.Data.Base
             await _context.Set<T>().AddAsync(entity);
             await _context.SaveChangesAsync();
         }
-        
+
+
+        public async Task AddAsync(int id,T entity)
+        {
+            await _context.Set<T>().AddAsync(entity);
+            await _context.SaveChangesAsync();
+        }
+
+
 
         public async Task DeleteAsync(int id)
         {

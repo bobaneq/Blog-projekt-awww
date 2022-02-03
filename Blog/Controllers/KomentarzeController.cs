@@ -36,14 +36,68 @@ namespace Blog.Controllers
             return View();  
         }
 
+        // trzeba poprawić komentarz bo bind nie działa z wpisem
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("Tresc")]Komentarz komentarz)
+        public async Task<IActionResult> Create(int id, [Bind("Id,Tresc")]Komentarz komentarz)
         {
-            if (!ModelState.IsValid) View(komentarz);
-            await _service.AddAsync(komentarz);
+            if (!ModelState.IsValid) return View(komentarz);
+            await _service.AddAsync(id, komentarz);
             return RedirectToAction(nameof(Index));
 
         }
 
+        //GET Komentarze/Details/1
+        public async Task<IActionResult> Details(int id)
+        {
+            var komentarzeDetails = await _service.GetByIdAsync(id);
+
+            if (komentarzeDetails == null) return View("NotFound");
+            return View(komentarzeDetails);
+
+        }
+
+        //:GET Komentarze/Edit/1
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var komentarzeDetails = await _service.GetByIdAsync(id);
+
+            if (komentarzeDetails == null) return View("NotFound");
+            return View(komentarzeDetails);
+
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id,[Bind("Id,Tresc")] Komentarz komentarz)
+        {
+            if (!ModelState.IsValid) return View(komentarz);
+            await _service.UpdateAsync(id,komentarz);
+            return RedirectToAction(nameof(Index));
+
+        }
+
+        //:GET Komentarze/Delete/1
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var komentarzeDetails = await _service.GetByIdAsync(id);
+
+            if (komentarzeDetails == null) return View("NotFound");
+            return View(komentarzeDetails);
+
+        }
+
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirm(int id)
+        {
+            var komentarzeDetails = await _service.GetByIdAsync(id);
+
+            if (komentarzeDetails == null) return View("NotFound");
+            await _service.DeleteAsync(id);
+            return RedirectToAction(nameof(Index));
+
+        }
     }
 }

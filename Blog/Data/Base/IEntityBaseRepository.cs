@@ -10,7 +10,7 @@ namespace Blog.Data.Base
 
         Task<T> GetByIdAsync(int id);
 
-        Task AddAsync(T entity);
+        Task AddAsync(int id, T entity);
 
         Task UpdateAsync(int id, T entity);
 

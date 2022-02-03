@@ -16,7 +16,7 @@ namespace Blog.Models
 
 
         //public int WpisId { get; set; }
-        //public Wpis Wpis { get; set; }
+       // public Wpis Wpis { get; set; }
 
 
 

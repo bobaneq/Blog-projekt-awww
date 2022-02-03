@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Blog.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220201132741_Fourth")]
-    partial class Fourth
+    [Migration("20220203141034_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -66,9 +66,16 @@ namespace Blog.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Nazwa")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<int?>("WpisId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("WpisId");
 
                     b.ToTable("Tagi");
                 });
@@ -97,6 +104,9 @@ namespace Blog.Migrations
 
                     b.Property<DateTime>("DataDodania")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("ImageURL")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("KomentarzeZablokowane")
                         .HasColumnType("bit");
@@ -130,6 +140,15 @@ namespace Blog.Migrations
                         .HasForeignKey("WpisId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Wpis");
+                });
+
+            modelBuilder.Entity("Blog.Models.Tag", b =>
+                {
+                    b.HasOne("Blog.Models.Wpis", "Wpis")
+                        .WithMany()
+                        .HasForeignKey("WpisId");
 
                     b.Navigation("Wpis");
                 });

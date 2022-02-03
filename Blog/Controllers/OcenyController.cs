@@ -50,10 +50,10 @@ namespace Blog.Controllers
 
         // tutaj w bind nie będziemy podmieniać Id w bazie,
         // więc to jest do zmiany
-        public async Task<IActionResult> Create([Bind("Id")]Ocena ocena)
+        public async Task<IActionResult> Create(int id,[Bind("Id")]Ocena ocena)
         {
             if(!ModelState.IsValid)return View(ocena);
-            await _service.AddAsync(ocena);
+            await _service.AddAsync(id,ocena);
 
             return RedirectToAction(nameof(Index));
 

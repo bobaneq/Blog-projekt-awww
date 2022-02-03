@@ -8,24 +8,12 @@ namespace Blog.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Tagi",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nazwa = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tagi", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Wpisy",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Tytul = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Zawartosc = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     KomentarzeZablokowane = table.Column<bool>(type: "bit", nullable: false),
@@ -76,6 +64,26 @@ namespace Blog.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Tagi",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nazwa = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    WpisId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tagi", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tagi_Wpisy_WpisId",
+                        column: x => x.WpisId,
+                        principalTable: "Wpisy",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TagiWpisy",
                 columns: table => new
                 {
@@ -107,6 +115,11 @@ namespace Blog.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Oceny_WpisId",
                 table: "Oceny",
+                column: "WpisId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tagi_WpisId",
+                table: "Tagi",
                 column: "WpisId");
 
             migrationBuilder.CreateIndex(

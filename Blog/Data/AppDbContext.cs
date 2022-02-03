@@ -25,11 +25,13 @@ namespace Blog.Data
                      tw.WpisId
                  });
 
-            modelBuilder.Entity<TagWpis>().HasOne(t => t.Tag)
+            modelBuilder.Entity<TagWpis>()
+                .HasOne(t => t.Tag)
                 .WithMany(tw => tw.TagiWpisy)
                 .HasForeignKey(ti => ti.TagId);
 
-            modelBuilder.Entity<TagWpis>().HasOne(w => w.Wpis)
+            modelBuilder.Entity<TagWpis>()
+            .HasOne(w => w.Wpis)
             .WithMany(tw => tw.TagiWpisy)
             .HasForeignKey(wi => wi.WpisId);
 
