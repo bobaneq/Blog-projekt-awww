@@ -1,4 +1,6 @@
 ﻿using Blog.Data;
+using Blog.Data.Services;
+using Blog.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -8,11 +10,11 @@ namespace Blog.Controllers
 {
     public class KomentarzeController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly IKomentarzeService _service;
 
-        public KomentarzeController(AppDbContext context)
+        public KomentarzeController(IKomentarzeService service)
         {
-            _context = context;
+            _service = service;
         }
 
 
@@ -21,8 +23,27 @@ namespace Blog.Controllers
         {
 
             // zmiana sync methods to async 
-            var WszystkieKomentarze = await _context.Komentarze.ToListAsync();
+            var WszystkieKomentarze = await _service.GetAllAsync();
             return View(WszystkieKomentarze);
         }
+
+
+        //GET: Komentarze/Create
+
+        public IActionResult Create()
+        {
+
+            return View();  
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([Bind("Tresc")]Komentarz komentarz)
+        {
+            if (!ModelState.IsValid) View(komentarz);
+            await _service.AddAsync(komentarz);
+            return RedirectToAction(nameof(Index));
+
+        }
+
     }
 }

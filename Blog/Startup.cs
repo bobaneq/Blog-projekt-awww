@@ -36,6 +36,7 @@ namespace Blog
 
             services.AddScoped<ITagiService, TagiService >();
             services.AddScoped<IOcenyService, OcenyService>();
+            services.AddScoped<IKomentarzeService, KomentarzeService>();
 
 
 
