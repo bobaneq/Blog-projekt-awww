@@ -27,6 +27,30 @@ namespace Blog.Controllers
             var WszystkieWpisy = await _service.GetAllAsync(n => n.Komentarze);
             return View(WszystkieWpisy);
         }
+
+        //GET: Wpisy/Details/1
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var wpisDetails = await _service.GetWpisByIdAsync(id);
+            return View(wpisDetails);
+        }
+
+        //dodawanie nowych wpisów
+        //GET Wpisy/Create
+
+        public IActionResult Create()
+        {
+            ViewData["Dodaj"] = "Dodaj nowy wpis";
+
+            ViewBag.Description = "This is the description";
+
+            return View();
+
+        }
+
+
+
     }
 }
 

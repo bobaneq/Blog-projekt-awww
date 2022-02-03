@@ -1,0 +1,104 @@
+﻿@model Wpis
+
+@{
+    ViewData["Title"] = "Szczegóły wpisu";
+}
+
+
+
+<div class="row">
+ 
+        <div class="col-md-8 offset-2">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-12">
+                        <div class="card-header text-white bg-info">
+                            <p class="card-text">
+                                <h5 class="card-title">
+                                    @Model.Tytul
+                                 
+                                    <a class="text-white float-right"><i class="bi bi-pencil-square"></i></a>
+                                 
+                                </h5>
+                            </p>
+                        </div>
+                    </div>
+                    @*na razie bez obrazka*@
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text">@Model.Zawartosc</p>
+                            <p class="card-text"><b>Komentarz zablokowany: </b>@Model.KomentarzeZablokowane</p>
+                            <p class="card-text"><b>Data dodania: </b>@Model.DataDodania.ToString("dd MMM yy, hh:mm:ss")</p>
+                            
+                            <p>
+                            <b>Tagi : </b>
+                        
+                            <span>
+                                @foreach (var tag in Model.TagiWpisy)
+                               {
+                                  <span>
+
+                                     <a asp-controller="Tagi" asp-action="Details" asp-route-id="@tag.Tag.Id">@tag.Tag.Nazwa</a>
+                                 
+                                 <span> | </span>
+                                 </span> 
+                                 
+                               }
+                            </span>
+                            </p>
+                             <hr />
+                             <p>
+                            <b>Oceny : </b>
+                           
+                            <div class="row">
+                                @foreach (var ocena in Model.Oceny)
+                               {
+                                  <p class="column text-center">
+                                       @*tutaj dla oceny trzeba  dopisac wybieranie wartości*@
+                                      <a asp-controller="Oceny" asp-action="Details" asp-route-id="@ocena.Id">@ocena.Id</a>
+                                   <span> | </span>
+                                  </p>
+
+                               }
+                            </div>
+                               
+                             </p>
+                           <hr />
+                           
+
+                             <b>Komentarze : </b>
+                           
+                            <p class="row" >
+                                @foreach (var komentarz in Model.Komentarze)
+                               {
+                                  <p class=" text-left">
+                                      
+                                      <a style="text-decorations:none; color:inherit;" asp-controller="Komentarze" asp-action="Details" asp-route-id="@komentarz.Id">@komentarz.Tresc</a>
+                                  </p>
+
+                               }
+                            
+                            
+                            </p>
+                            
+                    
+
+
+                           
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div >
+                            <p class="card-text">
+                                <a class="btn btn-outline-primary float-right" asp-action="Index">
+                                    <i class="bi bi-eye-fill"></i> Powrót do listy
+                                </a>
+    
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+</div>
