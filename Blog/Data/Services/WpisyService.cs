@@ -18,7 +18,7 @@ namespace Blog.Data.Services
         {
             var wpisyDetails = _context.Wpisy
                 .Include(k => k.Komentarze)
-                .Include(tw => tw.TagiWpisy).ThenInclude(t=>t.Tag)
+                .Include(tw => tw.TagiWpisy).ThenInclude(t => t.Tag)
                 .Include(o => o.Oceny)
                 .FirstOrDefaultAsync(n => n.Id == id);
 

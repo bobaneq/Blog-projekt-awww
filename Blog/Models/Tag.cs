@@ -15,8 +15,7 @@ namespace Blog.Models
         public List<TagWpis> TagiWpisy { get; set; }
 
 
-        //public int WpisId { get; set; }
-       // public Wpis Wpis { get; set; }
+        
 
 
 

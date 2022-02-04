@@ -3,10 +3,23 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Blog.Migrations
 {
-    public partial class Pierwsza : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Tagi",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nazwa = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tagi", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Wpisy",
                 columns: table => new
@@ -64,26 +77,6 @@ namespace Blog.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tagi",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nazwa = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    WpisId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tagi", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Tagi_Wpisy_WpisId",
-                        column: x => x.WpisId,
-                        principalTable: "Wpisy",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "TagiWpisy",
                 columns: table => new
                 {
@@ -92,7 +85,7 @@ namespace Blog.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TagiWpisy", x => new { x.TagId, x.WpisId });
+                    table.PrimaryKey("PK_TagiWpisy", x => new { x.WpisId, x.TagId });
                     table.ForeignKey(
                         name: "FK_TagiWpisy_Tagi_TagId",
                         column: x => x.TagId,
@@ -118,14 +111,9 @@ namespace Blog.Migrations
                 column: "WpisId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tagi_WpisId",
-                table: "Tagi",
-                column: "WpisId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TagiWpisy_WpisId",
+                name: "IX_TagiWpisy_TagId",
                 table: "TagiWpisy",
-                column: "WpisId");
+                column: "TagId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

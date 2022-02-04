@@ -11,7 +11,7 @@ namespace Blog.Models
 
         //    this.TagiWpisy = new List<TagWpis>();
         //    this.Komentarze = new List<Komentarz>();
-        //    this.Tagi = new List<Tag>();
+        //    this.Tags = new List<Tag>();
 
         //}
 
@@ -19,7 +19,7 @@ namespace Blog.Models
         [Key]
         public int Id { get; set; }
 
-        public string ImageURL { get; set; }
+        
 
         [Display(Name = "Temat")]
         public string Tytul { get; set; }
@@ -38,10 +38,11 @@ namespace Blog.Models
         public System.DateTime DataDodania { get; set; }
 
 
-        [Display(Name = "Tagi")]
-        public  List<Tag> Tagi { get; set; }
+  
 
         public  List<TagWpis> TagiWpisy { get; set; }
+
+        public List<Tag> Tags { get; set; }
 
 
         [Display(Name = "Komentarze")]

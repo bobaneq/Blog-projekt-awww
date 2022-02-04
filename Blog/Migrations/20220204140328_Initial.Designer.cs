@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Blog.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220203201922_Pierwsza")]
-    partial class Pierwsza
+    [Migration("20220204140328_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -70,27 +70,22 @@ namespace Blog.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<int?>("WpisId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("WpisId");
 
                     b.ToTable("Tagi");
                 });
 
             modelBuilder.Entity("Blog.Models.TagWpis", b =>
                 {
-                    b.Property<int>("TagId")
-                        .HasColumnType("int");
-
                     b.Property<int>("WpisId")
                         .HasColumnType("int");
 
-                    b.HasKey("TagId", "WpisId");
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("WpisId");
+                    b.HasKey("WpisId", "TagId");
+
+                    b.HasIndex("TagId");
 
                     b.ToTable("TagiWpisy");
                 });
@@ -144,13 +139,6 @@ namespace Blog.Migrations
                     b.Navigation("Wpis");
                 });
 
-            modelBuilder.Entity("Blog.Models.Tag", b =>
-                {
-                    b.HasOne("Blog.Models.Wpis", null)
-                        .WithMany("Tagi")
-                        .HasForeignKey("WpisId");
-                });
-
             modelBuilder.Entity("Blog.Models.TagWpis", b =>
                 {
                     b.HasOne("Blog.Models.Tag", "Tag")
@@ -180,8 +168,6 @@ namespace Blog.Migrations
                     b.Navigation("Komentarze");
 
                     b.Navigation("Oceny");
-
-                    b.Navigation("Tagi");
 
                     b.Navigation("TagiWpisy");
                 });
