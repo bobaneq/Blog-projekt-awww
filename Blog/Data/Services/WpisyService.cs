@@ -14,34 +14,6 @@ namespace Blog.Data.Services
             _context = context;
         }
 
-        public async Task AddNewWpisAsync(NewWpisVM data)
-        {
-            var newWpis = new Wpis()
-            {
-                Tytul = data.Tytul,
-                Zawartosc = data.Zawartosc,
-                KomentarzeZablokowane = data.KomentarzeZablokowane,
-                DataDodania = data.DataDodania
-            };
-
-            await _context.Wpisy.AddAsync(newWpis);
-            await _context.SaveChangesAsync();
-
-            //Dodawanie Tagów
-            //foreach (var tagid in data.tagiids)
-            //{
-            //    var newtagwpis = new tagwpis()
-            //    {
-            //        wpisid = newwpis.id,
-            //        tagid = tagid
-
-            //    };
-            //    await _context.tagiwpisy.addasync(newtagwpis);
-            //}
-
-            await _context.SaveChangesAsync();
-        }
-
         public async Task<Wpis> GetWpisByIdAsync(int id)
         {
             var wpisyDetails = _context.Wpisy
