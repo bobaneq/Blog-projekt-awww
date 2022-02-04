@@ -7,5 +7,8 @@ namespace Blog.Data.Services
     public interface IWpisyService: IEntityBaseRepository<Wpis>
     {
         Task<Wpis> GetWpisByIdAsync(int id);
+
+        Task AddNewWpisAsync(NewWpisVM data);
+
     }
 }

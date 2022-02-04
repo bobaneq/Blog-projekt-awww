@@ -1,5 +1,6 @@
 ﻿using Blog.Data;
 using Blog.Data.Services;
+using Blog.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections;
@@ -49,7 +50,17 @@ namespace Blog.Controllers
 
         }
 
+        [HttpPost]
 
+        public async Task<IActionResult> Create(NewWpisVM wpis)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(wpis);
+            }
+            await _service.AddNewWpisAsync(wpis);
+            return RedirectToAction(nameof(Index));
+        }
 
     }
 }

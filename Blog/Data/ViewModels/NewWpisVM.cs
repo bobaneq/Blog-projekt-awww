@@ -8,7 +8,6 @@ namespace Blog.Models
     {
 
 
-
         [Display(Name = "Temat")]
         public string Tytul { get; set; }
 
@@ -22,13 +21,21 @@ namespace Blog.Models
         public System.DateTime DataDodania { get; set; }
 
         [Display(Name = "Tagi")]
-        public List<int> TagiIds { get; set; }
+        public List<Tag> Tagi { get; set; }
 
-        [Display(Name = "Oceny")]
-        public List<int> OcenyIds { get; set; }
+        public List<TagWpis> TagiWpisy { get; set; }
+
 
         [Display(Name = "Komentarze")]
-        public List<int> KomentarzeIds { get; set; }
+        public List<Komentarz> Komentarze { get; set; }
+
+
+
+        [Display(Name = "Oceny")]
+        public List<Ocena> Oceny { get; set; }
+
+
+
 
 
 
