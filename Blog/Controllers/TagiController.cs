@@ -40,13 +40,13 @@ namespace Blog.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(int id,[Bind("Nazwa")] Tag tag)
+        public async Task<IActionResult> Create([Bind("Nazwa")] Tag tag)
         {
             if (!ModelState.IsValid)
             {
                 return View(tag);
             }
-            await _service.AddAsync(id,tag);
+            await _service.AddAsync(tag);
             return RedirectToAction(nameof(Index));
 
         }

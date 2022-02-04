@@ -53,7 +53,7 @@ namespace Blog.Controllers
         public async Task<IActionResult> Create(int id,[Bind("Id")]Ocena ocena)
         {
             if(!ModelState.IsValid)return View(ocena);
-            await _service.AddAsync(id,ocena);
+            await _service.AddAsync(ocena);
 
             return RedirectToAction(nameof(Index));
 

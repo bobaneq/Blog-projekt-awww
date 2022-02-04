@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Blog.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
@@ -10,12 +11,10 @@ namespace Blog.Data.Base
 {
     public class EntityBaseRepository<T> : IEntityBaseRepository<T> where T : class, IEntityBase, new()
     {
-        // injecting AppDbContext
         private readonly AppDbContext _context;
-
         public EntityBaseRepository(AppDbContext context)
         {
-             _context=context;
+            _context = context;
         }
 
         public async Task AddAsync(T entity)
@@ -24,52 +23,40 @@ namespace Blog.Data.Base
             await _context.SaveChangesAsync();
         }
 
-
-        public async Task AddAsync(int id,T entity)
-        {
-            await _context.Set<T>().AddAsync(entity);
-            await _context.SaveChangesAsync();
-        }
-
-
-
         public async Task DeleteAsync(int id)
         {
-            // pobieranie entity z bazy
-            var entity = await _context.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
+            var entity = await _context.Set<T>().FirstOrDefaultAsync(n => n.Id == id);
             EntityEntry entityEntry = _context.Entry<T>(entity);
             entityEntry.State = EntityState.Deleted;
 
             await _context.SaveChangesAsync();
         }
 
-        public async  Task<IEnumerable<T>> GetAllAsync() =>  await _context.Set<T>().ToListAsync();
+        public async Task<IEnumerable<T>> GetAllAsync() => await _context.Set<T>().ToListAsync();
 
-
-        // przesyłanie  propsów
         public async Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includeProperties)
         {
             IQueryable<T> query = _context.Set<T>();
-            query = includeProperties.Aggregate(query, (current, includePropertiey)=>current.Include(includePropertiey) ); 
+            query = includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
             return await query.ToListAsync();
+
         }
 
-        public async Task<T> GetByIdAsync(int id) =>  await _context.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
-           
+        public async Task<T> GetByIdAsync(int id) => await _context.Set<T>().FirstOrDefaultAsync(n => n.Id == id);
 
-
-
-
-
+        public async Task<T> GetByIdAsync(int id, params Expression<Func<T, object>>[] includeProperties)
+        {
+            IQueryable<T> query = _context.Set<T>();
+            query = includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+            return await query.FirstOrDefaultAsync(n => n.Id == id);
+        }
 
         public async Task UpdateAsync(int id, T entity)
         {
             EntityEntry entityEntry = _context.Entry<T>(entity);
             entityEntry.State = EntityState.Modified;
 
-
             await _context.SaveChangesAsync();
-
         }
     }
 }

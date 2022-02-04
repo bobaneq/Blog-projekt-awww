@@ -38,10 +38,10 @@ namespace Blog.Controllers
 
         // trzeba poprawić komentarz bo bind nie działa z wpisem
         [HttpPost]
-        public async Task<IActionResult> Create(int id, [Bind("Id,Tresc")]Komentarz komentarz)
+        public async Task<IActionResult> Create([Bind("Tresc")]Komentarz komentarz)
         {
             if (!ModelState.IsValid) return View(komentarz);
-            await _service.AddAsync(id, komentarz);
+            await _service.AddAsync(komentarz);
             return RedirectToAction(nameof(Index));
 
         }
