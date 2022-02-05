@@ -1,6 +1,8 @@
 ﻿using Blog.Data;
 using Blog.Data.Services;
+using Blog.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Collections;
 using System.Linq;
